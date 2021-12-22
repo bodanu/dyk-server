@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('https://dyk.digital');
 });
 
 Route::get('/api/posts', [PostsController::class, 'index']);
