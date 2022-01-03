@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PostsController extends Controller
 {
@@ -17,9 +19,16 @@ class PostsController extends Controller
 
     public function create(Request $request)
     {
+
+        $input = json_decode(json_encode($request->all()), TRUE);
+
+        Validator::make($input, [
+            'title' => ['string', 'max:512'],
+            'body' => ['required', 'string'],
+        ])->validate();
         $newPost = Posts::create([
             'user_id' => Auth::user()->id,
-            'title' => $request->title,
+            'title' => $request->title ? $request->title : "Did you know...",
             'body' => $request->body
         ]);
 

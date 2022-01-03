@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('https://dyk.digital');
 });
+
+Route::get('posts-sitemap.xml',  [SitemapController::class, 'index']);
 
 Route::get('/api/posts', [PostsController::class, 'index']);
 Route::post('/api/posts', [PostsController::class, 'create'])->middleware('auth:sanctum');
